@@ -6,20 +6,35 @@ public class Game {
 
 	private int rows;
 	private int cols;
+	private int numBonks, numZaps;
 	private ArrayList<Being>[][] world;
 	private ArrayList<Bonks> bonks;
 	private ArrayList<Zaps> zaps;
+
+	private int cycles;
+	private final int MAX_CYCLES;
 	
 	@SuppressWarnings("unchecked")
-	public Game(int rows, int cols){
+	public Game(int rows, int cols, int numBonks, int numZaps){
 		this.rows = rows;
 		this.cols = cols;
 		
 		world = new ArrayList[rows][cols];
 		bonks = new ArrayList<Bonks>();
 		zaps = new ArrayList<Zaps>();
+		
+		
+		
+		cycles = 0;
+		MAX_CYCLES = 20;
 	}
 
+	public void gameLoop(){
+		do {
+			
+		} while(cycles <= MAX_CYCLES);
+	}
+	
 	public int getRows() {
 		return rows;
 	}

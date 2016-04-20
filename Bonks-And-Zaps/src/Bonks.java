@@ -1,8 +1,11 @@
 
 public class Bonks extends Mortal implements Being {
 	
-	public Bonks(Position location, int lives){
+	private String sex;
+	
+	public Bonks(Position location, int lives, String s){
 		super(location, lives);
+		sex = s;
 	}
 
 	@Override
@@ -28,5 +31,13 @@ public class Bonks extends Mortal implements Being {
 		super.setLocation(location);
 	}
 
-	
+	public String getSex() {
+		return sex;
+	}
+
+	@Override
+	public String toString() {
+		return "Bonks [sex=" + sex + "]";
+	}
+
 }
