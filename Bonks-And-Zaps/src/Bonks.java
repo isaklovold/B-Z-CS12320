@@ -1,9 +1,8 @@
 
-public class Bonks implements Being {
+public class Bonks extends Mortal implements Being {
 	
-	public Bonks(){
-		
-	
+	public Bonks(Position location, int lives){
+		super(location, lives);
 	}
 
 	@Override
@@ -26,8 +25,8 @@ public class Bonks implements Being {
 
 	@Override
 	public void setLocation(Position location) {
-		// TODO Auto-generated method stub
-		
+		super.setLocation(location);
 	}
 
+	
 }

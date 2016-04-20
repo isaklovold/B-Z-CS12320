@@ -1,12 +1,14 @@
 
-public class Zaps implements Being {
+public class Mortal implements Being{
 
 	private Position location;
+	private int lives;
 	
-	public Zaps(Position loc){
+	public Mortal(Position loc, int liv){
 		location = loc;
+		lives = liv;
 	}
-	
+
 	@Override
 	public String getName() {
 		// TODO Auto-generated method stub
@@ -27,7 +29,21 @@ public class Zaps implements Being {
 
 	@Override
 	public void setLocation(Position location) {
-		this.location = location;
+		// TODO Auto-generated method stub
+		
 	}
 
+	public int getLives() {
+		return lives;
+	}
+
+	public void setLives(int lives) {
+		this.lives = lives;
+	}
+
+	@Override
+	public String toString() {
+		return "Mortal [location=" + location + ", lives=" + lives + "]";
+	}
+	
 }
