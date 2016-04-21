@@ -23,15 +23,16 @@ public class Game {
 		bonks = new ArrayList<Bonks>();
 		zaps = new ArrayList<Zaps>();
 		
-		
-		
 		cycles = 0;
 		MAX_CYCLES = 20;
+		
+		gameLoop();
 	}
 
 	public void gameLoop(){
 		do {
-			
+			System.out.println("Hei");
+			cycles++;
 		} while(cycles <= MAX_CYCLES);
 	}
 	
