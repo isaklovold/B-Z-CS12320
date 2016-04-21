@@ -12,7 +12,7 @@ public class Zaps implements Being {
 	@Override
 	public String getName() {
 		// TODO Auto-generated method stub
-		return null;
+		return name;
 	}
 	
 	@Override
@@ -24,7 +24,7 @@ public class Zaps implements Being {
 	@Override
 	public Position getLocation() {
 		// TODO Auto-generated method stub
-		return null;
+		return location;
 	}
 
 	@Override

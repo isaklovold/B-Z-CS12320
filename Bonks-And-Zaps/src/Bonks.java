@@ -3,15 +3,15 @@ public class Bonks extends Mortal implements Being {
 	
 	private String sex;
 	
-	public Bonks(Position location, int lives, String s){
-		super(location, lives);
+	public Bonks(Position location, int lives, String s, String nm){
+		super(location, lives, nm);
 		sex = s;
 	}
 
 	@Override
 	public String getName() {
 		// TODO Auto-generated method stub
-		return null;
+		return super.getName();
 	}
 
 	@Override
@@ -23,7 +23,7 @@ public class Bonks extends Mortal implements Being {
 	@Override
 	public Position getLocation() {
 		// TODO Auto-generated method stub
-		return null;
+		return super.getLocation();
 	}
 
 	@Override
@@ -35,6 +35,8 @@ public class Bonks extends Mortal implements Being {
 		return sex;
 	}
 
+	
+	
 	@Override
 	public String toString() {
 		return "Bonks [sex=" + sex + "]";

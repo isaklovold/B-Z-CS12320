@@ -7,6 +7,7 @@ public class Application {
 	private Scanner in;
 	private int rows, cols;
 	private int numBonks, numZaps;
+	private int cycles;
 	private Game game;
 	
 	public Application(){
@@ -14,26 +15,27 @@ public class Application {
 		rows = 20;
 		cols = 20;
 		numBonks = 20;
+		cycles = 20;
 		numZaps = 5;
 	}
 	
 	public void runApp() throws IOException {
 		String choice;
-		System.out.println("*** HELLO - WELCOME BONKS AND ZAPS ***");
+		System.out.println("@@@@@ HELLO - WELCOME BONKS AND ZAPS @@@@@");
 		do {
 			printMenu();
 			choice = in.next().toUpperCase();
 			switch (choice) {
 			case "1":
 				System.out.println("Game is running");
-				game = new Game(rows, cols, numBonks, numZaps);
+				game = new Game(rows, cols, numBonks, numZaps, cycles);
 				break;
 			case "2":
 				System.out.println("Change settings:");
 				settings();
 				break;
 			case "Q":
-				System.out.println("Goodbye, hope you had fun playing 'BONKS AND ZAPS'. Welcome again!");
+				System.out.println("@@@@@ Goodbye, hope you had fun playing 'BONKS AND ZAPS'. Welcome again! @@@@@");
 				break;
 			default:
 				System.out.println("not a valid choice");
