@@ -14,6 +14,7 @@ public class Game {
 
 	private int cycles;
 	private final int MAX_CYCLES;
+	private int numBeings;
 	
 	private Random rand;
 	
@@ -31,6 +32,7 @@ public class Game {
 		bonks = new ArrayList<Bonks>();
 		zaps = new ArrayList<Zaps>();
 		
+		numBeings = numBonks + numZaps;
 		cycles = 0;
 		MAX_CYCLES = MAX_C;	
 		
@@ -38,11 +40,13 @@ public class Game {
 		startGame();
 	}
 
+	// GAME LOOP
 	public void startGame(){
 		do {
 			try {
 				
 				printGame();
+				movement();
 				cycles++;
 				Thread.sleep(10000);
 			} catch (InterruptedException e) {
@@ -52,6 +56,7 @@ public class Game {
 		} while(cycles <= MAX_CYCLES);
 	}
 	
+	// Creating Bonks and Zaps
 	public void createBeings() {
 		int x;
 		int y;
@@ -74,7 +79,7 @@ public class Game {
 			}
 			Bonks b = new Bonks(location, 1, sex, name);
 			bonks.add(b);
-			System.out.println(b.getName() + "(" + b.getLocation().toString() + ")");
+			//System.out.println(b.getName() + "(" + b.getLocation().toString() + ")");
 		}
 		for(int i = 0; i < numZaps; i++){
 			x = randomNum(rows);
@@ -83,25 +88,71 @@ public class Game {
 			name = "Z" + i;
 			Zaps z = new Zaps(location, name);
 			zaps.add(z);
-			System.out.println(z.getName() + "(" + z.getLocation().toString() + ")");
+			//System.out.println(z.getName() + "(" + z.getLocation().toString() + ")");
 		}
 	}
 	
+	// Creates a integer number of the range it get's as input
 	public int randomNum(int num){
 		rand = new Random();
 		int r = rand.nextInt(num);
 		return r;
 	}
 	
+	// Moves Bonks and Zaps (only moving Bonks if they are alive)
+	public void movement(){
+		int x, y;
+		Position location;
+		
+		for(int i = 0; i < bonks.size(); i++){
+			if(bonks.get(i).getLives() > 0){
+				x = randomNum(rows);
+				y = randomNum(rows);
+				location = new Position(x, y);
+				bonks.get(i).setLocation(location);
+			}
+			//System.out.println(bonks.get(i).getLocation());
+		}
+		for(int i = 0; i < zaps.size(); i++){
+			x = randomNum(rows);
+			y = randomNum(rows);
+			location = new Position(x, y);
+			zaps.get(i).setLocation(location);
+			//System.out.println(zaps.get(i).getLocation());
+		}
+	}
+	
+	// Prints the Grid out
 	public void printGame() {
+		ArrayList<Being> countBeings = new ArrayList<Being>();
+
 		for(int i = 0; i <= rows; i++){
 			for(int j = 0; j <= cols; j++){
+				for(int k = 0; k < bonks.size(); k++){
+					if(bonks.get(k).getLocation().getPositionX() == i && bonks.get(k).getLocation().getPositionY() == j){
+						countBeings.add(bonks.get(k));
+					} 
+				}
+				for(int h = 0; h < zaps.size(); h++){
+					if(zaps.get(h).getLocation().getPositionX() == i && zaps.get(h).getLocation().getPositionY() == j){
+						countBeings.add(zaps.get(h));
+					}
+				}
+				System.out.print("[" + i + ", " + j + "] = " + "[");
+				for(int b = 0; b < countBeings.size(); b++){
+					System.out.print(countBeings.get(b).getName());
+					countBeings.remove(b);
+				}
+				System.out.println("]");
+				
 //				Position location = new Position(i,j);
 //				for(int k = 0; k < bonks.size(); k++){
 //					for(int h = 0; h < zaps.size(); h++){
 //						if(bonks.get(k).getLocation() == location || zaps.get(h).getLocation() == location) {
 //							System.out.println("[" + i + ", " + j + "] = " + "[" + bonks.get(k).getName() + ", " + zaps.get(h).getName() + "]");
-//						} 
+//						} else {
+//							
+//						}
 //					}
 //				}
 			}

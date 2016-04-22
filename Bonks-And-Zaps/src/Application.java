@@ -12,11 +12,11 @@ public class Application {
 	
 	public Application(){
 		in = new Scanner(System.in);
-		rows = 20;
-		cols = 20;
-		numBonks = 20;
+		rows = 5;
+		cols = 5;
+		numBonks = 5;
 		cycles = 20;
-		numZaps = 5;
+		numZaps = 2;
 	}
 	
 	public void runApp() throws IOException {
@@ -59,8 +59,9 @@ public class Application {
 	}
 	
 	public void printMenu() {
-		System.out.println("\nThe game consist of a (" + rows + "x" + cols + ") grid "
-						+ "with a start of " + numBonks + " Bonks and " + numZaps + " Zaps \n"
+		System.out.println("\nThe game consist of a (" + rows + "x" + cols + ") Grid "
+						+ "with a start of \n" + numBonks + " Bonks, " + numZaps + " Zaps "
+						+ "and " + cycles + " Cycels! \n"
 						+ "Press: \n"
 						+ "1 - To Play the game \n"
 						+ "2 - To Change the game setting \n"
