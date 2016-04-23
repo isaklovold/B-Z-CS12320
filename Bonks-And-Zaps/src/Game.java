@@ -129,17 +129,6 @@ public class Game {
 					countBeings.remove(b);
 				}
 				System.out.println("]");
-				
-//				Position location = new Position(i,j);
-//				for(int k = 0; k < bonks.size(); k++){
-//					for(int h = 0; h < zaps.size(); h++){
-//						if(bonks.get(k).getLocation() == location || zaps.get(h).getLocation() == location) {
-//							System.out.println("[" + i + ", " + j + "] = " + "[" + bonks.get(k).getName() + ", " + zaps.get(h).getName() + "]");
-//						} else {
-//							
-//						}
-//					}
-//				}
 			}
 		}
 	}

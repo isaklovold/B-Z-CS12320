@@ -4,11 +4,14 @@ public class Mortal implements Being{
 	private Position location;
 	private int lives;
 	private String name;
+	private Movement movement;
 	
 	public Mortal(Position loc, int liv, String nm){
 		location = loc;
 		lives = liv;
 		name = nm;
+		
+		movement = new Movement();
 	}
 
 	@Override
@@ -19,8 +22,7 @@ public class Mortal implements Being{
 
 	@Override
 	public void act() throws CannotActException {
-		// TODO Auto-generated method stub
-		
+		this.setLocation(movement.move(this.getLocation(), 5)); // @@@@@@ CHANGE THE EDGE (NUMBER) @@@@@ 
 	}
 
 	@Override
