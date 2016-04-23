@@ -22,7 +22,7 @@ public class Game {
 		MAX_CYCLES = 0;
 	}
 	
-	public Game(int rows, int cols, int numBonks, int numZaps, int MAX_C){
+	public Game(int rows, int cols, int numBonks, int numZaps, int MAX_C) throws CannotActException{
 		this.rows = rows;
 		this.cols = cols;
 		this.numBonks = numBonks;
@@ -41,19 +41,27 @@ public class Game {
 	}
 
 	// GAME LOOP
-	public void startGame(){
+	public void startGame() throws CannotActException{
 		do {
 			try {
-				
+				for(int i = 0; i < bonks.size(); i++){
+					bonks.get(i).act();
+				}
+				for(int i = 0; i < zaps.size(); i++){
+					zaps.get(i).act();
+				}
 				printGame();
-				movement();
 				cycles++;
-				Thread.sleep(10000);
+				Thread.sleep(1000);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		} while(cycles <= MAX_CYCLES);
+		
+		System.out.println("Game-world is over, stats:");
+		System.out.println("Bonks alive: " + "@@ add code for bonks alive after game @@");
+		System.out.println("Baby Bonks alive: " + "@@ add code for baby bonks alive after game @@");
 	}
 	
 	// Creating Bonks and Zaps
@@ -97,29 +105,6 @@ public class Game {
 		rand = new Random();
 		int r = rand.nextInt(num);
 		return r;
-	}
-	
-	// Moves Bonks and Zaps (only moving Bonks if they are alive)
-	public void movement(){
-		int x, y;
-		Position location;
-		
-		for(int i = 0; i < bonks.size(); i++){
-			if(bonks.get(i).getLives() > 0){
-				x = randomNum(rows);
-				y = randomNum(rows);
-				location = new Position(x, y);
-				bonks.get(i).setLocation(location);
-			}
-			//System.out.println(bonks.get(i).getLocation());
-		}
-		for(int i = 0; i < zaps.size(); i++){
-			x = randomNum(rows);
-			y = randomNum(rows);
-			location = new Position(x, y);
-			zaps.get(i).setLocation(location);
-			//System.out.println(zaps.get(i).getLocation());
-		}
 	}
 	
 	// Prints the Grid out

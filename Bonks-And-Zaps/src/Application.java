@@ -15,11 +15,11 @@ public class Application {
 		rows = 5;
 		cols = 5;
 		numBonks = 5;
-		cycles = 20;
+		cycles = 5;
 		numZaps = 2;
 	}
 	
-	public void runApp() throws IOException {
+	public void runApp() throws IOException, CannotActException {
 		String choice;
 		System.out.println("@@@@@ HELLO - WELCOME BONKS AND ZAPS @@@@@");
 		do {
@@ -68,7 +68,7 @@ public class Application {
 						+ "Q = To Quit");
 	}
 	
-	public static void main(String[] args) throws IOException {
+	public static void main(String[] args) throws IOException, CannotActException {
 		Application app = new Application();
 		app.runApp();
 	}

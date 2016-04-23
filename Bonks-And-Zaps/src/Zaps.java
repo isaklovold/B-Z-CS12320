@@ -3,10 +3,12 @@ public class Zaps implements Being {
 
 	private Position location;
 	private String name;
+	private Movement movement;
 	
 	public Zaps(Position loc, String n){
 		location = loc;
 		name = n;
+		movement = new Movement();
 	}
 	
 	@Override
@@ -17,8 +19,7 @@ public class Zaps implements Being {
 	
 	@Override
 	public void act() throws CannotActException {
-		// TODO Auto-generated method stub
-		
+		this.setLocation(movement.move(this.getLocation(), 5)); // @@@@@@ CHANGE THE EDGE (NUMBER) @@@@@ 
 	}
 
 	@Override
