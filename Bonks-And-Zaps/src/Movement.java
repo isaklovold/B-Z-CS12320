@@ -17,7 +17,7 @@ public class Movement {
 		int n = randomNum(4);
 		
 		if(n == 0 || n == 1){
-			if(loc.getPositionX() <= edge && loc.getPositionY() <= edge){
+			if(loc.getPositionX() < edge && loc.getPositionY() < edge){
 				if(n == 0){
 					x += 1;
 				} else{

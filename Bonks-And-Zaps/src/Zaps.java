@@ -1,14 +1,22 @@
+import java.util.ArrayList;
+
 
 public class Zaps implements Being {
 
 	private Position location;
 	private String name;
 	private Movement movement;
+	private ArrayList<Being> beings;
+	
+	public Zaps(){
+		
+	}
 	
 	public Zaps(Position loc, String n){
 		location = loc;
 		name = n;
 		movement = new Movement();
+		beings = new ArrayList<Being>();
 	}
 	
 	@Override
@@ -19,7 +27,20 @@ public class Zaps implements Being {
 	
 	@Override
 	public void act() throws CannotActException {
-		this.setLocation(movement.move(this.getLocation(), 5)); // @@@@@@ CHANGE THE EDGE (NUMBER) @@@@@ 
+		this.setLocation(movement.move(this.getLocation(), 5)); // @@@@@@ CHANGE THE EDGE (NUMBER) @@@@@
+		zap();
+	}
+	
+	public void passBeings(Being b){
+		beings.add(b);
+	}
+	
+	public void zap(){
+		for(int i = 0; i < beings.size(); i++){
+			if(this.getLocation().equals(beings.get(i).getLocation())){
+				
+			}
+		}
 	}
 
 	@Override

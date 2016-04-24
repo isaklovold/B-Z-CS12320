@@ -11,7 +11,9 @@ public class Game {
 	private ArrayList<Being>[][] world;
 	private ArrayList<Bonks> bonks;
 	private ArrayList<Zaps> zaps;
-
+	private ArrayList<Being> beings;
+	private Zaps zap;
+	
 	private int cycles;
 	private final int MAX_CYCLES;
 	private int numBeings;
@@ -31,11 +33,13 @@ public class Game {
 		world = new ArrayList[rows][cols];
 		bonks = new ArrayList<Bonks>();
 		zaps = new ArrayList<Zaps>();
+		beings = new ArrayList<Being>();
+		zap = new Zaps();		
 		
 		numBeings = numBonks + numZaps;
 		cycles = 0;
 		MAX_CYCLES = MAX_C;	
-		
+
 		createBeings();
 		startGame();
 	}
@@ -44,7 +48,10 @@ public class Game {
 	public void startGame() throws CannotActException{
 		do {
 			try {
-				for(int i = 0; i < bonks.size(); i++){
+				for(int i = 0; i < beings.size(); i++){
+					zap.passBeings(beings.get(i));
+				}
+				for(int i = 0; i < bonks.size(); i++){					
 					bonks.get(i).act();
 				}
 				for(int i = 0; i < zaps.size(); i++){
@@ -87,6 +94,7 @@ public class Game {
 			}
 			Bonks b = new Bonks(location, 1, sex, name);
 			bonks.add(b);
+			beings.add(b);
 			//System.out.println(b.getName() + "(" + b.getLocation().toString() + ")");
 		}
 		for(int i = 0; i < numZaps; i++){
@@ -96,8 +104,28 @@ public class Game {
 			name = "Z" + i;
 			Zaps z = new Zaps(location, name);
 			zaps.add(z);
+			beings.add(z);
 			//System.out.println(z.getName() + "(" + z.getLocation().toString() + ")");
 		}
+		
+		// @@@@@@ TEST FOR HOW TO STORE BEINGS @@@@@@@@@
+//		ArrayList<Being> k = new ArrayList<Being>();
+//		for(int i = 0; i < rows; i++){
+//			for(int j = 0; j < cols; j++){
+//				for(int b = 0; b < beings.size(); b++){
+//					if(beings.get(b).getLocation().getPositionX() == i && beings.get(b).getLocation().getPositionY() == j){
+//						k.add(beings.get(b));
+//					}
+//				}
+//				if(k != null){
+//					g[i][j].add(k);
+//				}
+//				for(int h = 0; h < k.size(); h++){
+//					System.out.println("hei");
+//					k.remove(h);
+//				}
+//			}
+//		}
 	}
 	
 	// Creates a integer number of the range it get's as input

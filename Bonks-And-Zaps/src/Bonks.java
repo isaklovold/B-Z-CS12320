@@ -17,7 +17,6 @@ public class Bonks extends Mortal implements Being {
 	@Override
 	public void act() throws CannotActException {
 		super.act(); 
-		
 	}
 
 	@Override
