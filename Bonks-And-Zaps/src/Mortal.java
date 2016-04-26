@@ -41,6 +41,20 @@ public class Mortal implements Being{
 		return lives;
 	}
 
+	
+	
+	public Movement getMovement() {
+		return movement;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public void setMovement(Movement movement) {
+		this.movement = movement;
+	}
+
 	public void setLives(int lives) {
 		this.lives = lives;
 	}

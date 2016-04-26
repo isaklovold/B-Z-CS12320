@@ -11,7 +11,7 @@ public class Game {
 	private ArrayList<Being>[][] world;
 	private ArrayList<Bonks> bonks;
 	private ArrayList<Zaps> zaps;
-	private ArrayList<Being> beings;
+	private ArrayList<Mortal> mortals;
 	private Zaps zap;
 	
 	private int cycles;
@@ -33,7 +33,7 @@ public class Game {
 		world = new ArrayList[rows][cols];
 		bonks = new ArrayList<Bonks>();
 		zaps = new ArrayList<Zaps>();
-		beings = new ArrayList<Being>();
+		mortals = new ArrayList<Mortal>();
 		zap = new Zaps();		
 		
 		numBeings = numBonks + numZaps;
@@ -48,15 +48,14 @@ public class Game {
 	public void startGame() throws CannotActException{
 		do {
 			try {
-				for(int i = 0; i < beings.size(); i++){
-					zap.passBeings(beings.get(i));
-				}
-				for(int i = 0; i < bonks.size(); i++){					
+				for(int i = 0; i < bonks.size(); i++){	
 					bonks.get(i).act();
 				}
 				for(int i = 0; i < zaps.size(); i++){
+					zaps.get(i).setMortals(mortals);
 					zaps.get(i).act();
 				}
+				mortals = zap.getMortals();
 				printGame();
 				cycles++;
 				Thread.sleep(1000);
@@ -94,7 +93,7 @@ public class Game {
 			}
 			Bonks b = new Bonks(location, 1, sex, name);
 			bonks.add(b);
-			beings.add(b);
+			mortals.add(b);
 			//System.out.println(b.getName() + "(" + b.getLocation().toString() + ")");
 		}
 		for(int i = 0; i < numZaps; i++){
@@ -104,7 +103,6 @@ public class Game {
 			name = "Z" + i;
 			Zaps z = new Zaps(location, name);
 			zaps.add(z);
-			beings.add(z);
 			//System.out.println(z.getName() + "(" + z.getLocation().toString() + ")");
 		}
 		
@@ -140,6 +138,8 @@ public class Game {
 		ArrayList<Being> countBeings = new ArrayList<Being>();
 
 		for(int i = 0; i <= rows; i++){
+			System.out.println();
+
 			for(int j = 0; j <= cols; j++){
 				for(int k = 0; k < bonks.size(); k++){
 					if(bonks.get(k).getLocation().getPositionX() == i && bonks.get(k).getLocation().getPositionY() == j){
@@ -152,6 +152,7 @@ public class Game {
 					}
 				}
 				System.out.print("[" + i + ", " + j + "] = " + "[");
+				//System.out.print("[");
 				for(int b = 0; b < countBeings.size(); b++){
 					System.out.print(countBeings.get(b).getName());
 					countBeings.remove(b);
