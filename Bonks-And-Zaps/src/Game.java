@@ -12,7 +12,6 @@ public class Game {
 	private ArrayList<Bonks> bonks;
 	private ArrayList<Zaps> zaps;
 	private ArrayList<Mortal> mortals;
-	private Zaps zap;
 	
 	private int cycles;
 	private final int MAX_CYCLES;
@@ -34,7 +33,6 @@ public class Game {
 		bonks = new ArrayList<Bonks>();
 		zaps = new ArrayList<Zaps>();
 		mortals = new ArrayList<Mortal>();
-		zap = new Zaps();		
 		
 		numBeings = numBonks + numZaps;
 		cycles = 0;
@@ -48,15 +46,25 @@ public class Game {
 	public void startGame() throws CannotActException{
 		do {
 			try {
-				for(int i = 0; i < bonks.size(); i++){	
-					bonks.get(i).act();
+				for(int i = 0; i < mortals.size(); i++){
+					System.out.println("first: " + mortals.get(i).getName() + " " + mortals.get(i).getLives() + " (" + mortals.get(i).getLocation().getPositionX() + "," + mortals.get(i).getLocation().getPositionY() + ")");
 				}
 				for(int i = 0; i < zaps.size(); i++){
 					zaps.get(i).setMortals(mortals);
 					zaps.get(i).act();
+					mortals = zaps.get(i).getMortals();
 				}
-				mortals = zap.getMortals();
-				printGame();
+				for(int i = 0; i < mortals.size(); i++){	
+					mortals.get(i).act();
+				}
+				for(int i = 0; i < mortals.size(); i++){
+					System.out.println("second: " + mortals.get(i).getName() + " " + mortals.get(i).getLives() + " (" + mortals.get(i).getLocation().getPositionX() + "," + mortals.get(i).getLocation().getPositionY() + ")");
+				}
+//				for(int i = 0; i < mortals.size(); i++){
+//					System.out.println(mortals.get(i).getName());
+//				}
+				
+				//printGame();
 				cycles++;
 				Thread.sleep(1000);
 			} catch (InterruptedException e) {
@@ -141,20 +149,29 @@ public class Game {
 			System.out.println();
 
 			for(int j = 0; j <= cols; j++){
-				for(int k = 0; k < bonks.size(); k++){
-					if(bonks.get(k).getLocation().getPositionX() == i && bonks.get(k).getLocation().getPositionY() == j){
-						countBeings.add(bonks.get(k));
-					} 
-				}
+//				for(int k = 0; k < bonks.size(); k++){
+//					if(bonks.get(k).getLocation().getPositionX() == i && bonks.get(k).getLocation().getPositionY() == j){
+//						countBeings.add(bonks.get(k));
+//					} 
+//				}
 				for(int h = 0; h < zaps.size(); h++){
 					if(zaps.get(h).getLocation().getPositionX() == i && zaps.get(h).getLocation().getPositionY() == j){
 						countBeings.add(zaps.get(h));
 					}
 				}
+				for(int m = 0; m < mortals.size(); m++){
+					if(mortals.get(m).getLocation().getPositionX() == i && mortals.get(m).getLocation().getPositionY() == j){
+						countBeings.add(mortals.get(m));
+					}
+				}
+				
 				System.out.print("[" + i + ", " + j + "] = " + "[");
 				//System.out.print("[");
 				for(int b = 0; b < countBeings.size(); b++){
 					System.out.print(countBeings.get(b).getName());
+//					if(countBeings.size() > 1){
+//						
+//					}
 					countBeings.remove(b);
 				}
 				System.out.println("]");

@@ -22,7 +22,9 @@ public class Mortal implements Being{
 
 	@Override
 	public void act() throws CannotActException {
-		this.setLocation(movement.move(this.getLocation(), 5)); // @@@@@@ CHANGE THE EDGE (NUMBER) @@@@@ 
+		if(this.getLives() > 0){
+			this.setLocation(movement.move(this.getLocation(), 5)); // @@@@@@ CHANGE THE EDGE (NUMBER) @@@@@
+		}
 	}
 
 	@Override

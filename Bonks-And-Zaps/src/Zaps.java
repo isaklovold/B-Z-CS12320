@@ -37,12 +37,16 @@ public class Zaps implements Being {
 	public void zap(){
 		if(mortals != null){
 		for(int i = 0; i < mortals.size(); i++){
-			if(this.getLocation().getPositionX() == mortals.get(i).getLocation().getPositionX()
-					&& this.getLocation().getPositionY() == mortals.get(i).getLocation().getPositionY()){
-				mortals.get(i).setLives(mortals.get(i).getLives() - damage);
-				if(mortals.get(i).getLives() <= 0){
-					mortals.get(i).setName(mortals.get(i).getName() + "-D");
-				} 
+			if(mortals.get(i).getLives() > 0){
+				if(this.getLocation().getPositionX() == mortals.get(i).getLocation().getPositionX()
+						&& this.getLocation().getPositionY() == mortals.get(i).getLocation().getPositionY()){
+//					System.out.println(mortals.get(i).getName() + " " + mortals.get(i).getLives());
+					mortals.get(i).setLives(mortals.get(i).getLives() - damage);
+//					System.out.println(mortals.get(i).getName() + " " + mortals.get(i).getLives());
+					if(mortals.get(i).getLives() <= 0){
+						mortals.get(i).setName(mortals.get(i).getName() + "-D");
+					} 
+				}
 			}
 		}
 		}
