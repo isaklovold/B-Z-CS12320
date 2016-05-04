@@ -1,5 +1,9 @@
+package uk.ac.aber.iwl1.BonksAndZaps;
 import java.io.IOException;
 import java.util.Scanner;
+
+import uk.ac.aber.iwl1.BonksAndZaps.mechanics.CannotActException;
+import uk.ac.aber.iwl1.BonksAndZaps.mechanics.Game;
 
 /**
  * Main class that runs the menu and game for Bonks And Zaps

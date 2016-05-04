@@ -1,4 +1,7 @@
+package uk.ac.aber.iwl1.BonksAndZaps.utilities;
 import java.util.Random;
+
+import uk.ac.aber.iwl1.BonksAndZaps.mechanics.Position;
 
 /**
  * Utilities class where logic such as random and movement is gathered

@@ -1,3 +1,4 @@
+package uk.ac.aber.iwl1.BonksAndZaps.mechanics;
 
 /**
  * CannotActException class that extends Exception that get's thrown if something wrong happens

@@ -1,3 +1,8 @@
+package uk.ac.aber.iwl1.BonksAndZaps.beings;
+import uk.ac.aber.iwl1.BonksAndZaps.mechanics.CannotActException;
+import uk.ac.aber.iwl1.BonksAndZaps.mechanics.Position;
+import uk.ac.aber.iwl1.BonksAndZaps.utilities.Utilities;
+
 
 /**
  * Mortal class that is the super class of all mortals

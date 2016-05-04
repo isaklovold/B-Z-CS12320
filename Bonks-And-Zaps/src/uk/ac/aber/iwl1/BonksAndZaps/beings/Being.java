@@ -1,3 +1,7 @@
+package uk.ac.aber.iwl1.BonksAndZaps.beings;
+import uk.ac.aber.iwl1.BonksAndZaps.mechanics.CannotActException;
+import uk.ac.aber.iwl1.BonksAndZaps.mechanics.Position;
+
 /**
 * Represents an inhabitant of GridWorld
 * @author cwl

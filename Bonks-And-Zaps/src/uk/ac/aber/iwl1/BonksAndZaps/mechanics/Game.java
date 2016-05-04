@@ -1,6 +1,13 @@
+package uk.ac.aber.iwl1.BonksAndZaps.mechanics;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
+
+import uk.ac.aber.iwl1.BonksAndZaps.beings.Being;
+import uk.ac.aber.iwl1.BonksAndZaps.beings.Bonks;
+import uk.ac.aber.iwl1.BonksAndZaps.beings.Mortal;
+import uk.ac.aber.iwl1.BonksAndZaps.beings.Zaps;
+import uk.ac.aber.iwl1.BonksAndZaps.utilities.Utilities;
 
 /**
  * Game class that runs the actual game

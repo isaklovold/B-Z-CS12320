@@ -1,4 +1,9 @@
+package uk.ac.aber.iwl1.BonksAndZaps.beings;
 import java.util.ArrayList;
+
+import uk.ac.aber.iwl1.BonksAndZaps.mechanics.CannotActException;
+import uk.ac.aber.iwl1.BonksAndZaps.mechanics.Position;
+import uk.ac.aber.iwl1.BonksAndZaps.utilities.Utilities;
 
 /**
  * Bonks class that extends the Mortal class and implements the Being interface

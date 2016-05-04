@@ -1,3 +1,4 @@
+package uk.ac.aber.iwl1.BonksAndZaps.mechanics;
 
 /**
  * Position class that creates a position of X and Y coordinates
