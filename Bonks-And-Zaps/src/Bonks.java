@@ -1,11 +1,24 @@
+import java.util.ArrayList;
+
 
 public class Bonks extends Mortal implements Being {
 	
-	private String sex;
+	private ArrayList<Bonks> babyBonks;
+	private ArrayList<Bonks> bonks;
 	
-	public Bonks(Position location, int lives, String s, String nm){
+	private String sex;
+	private boolean hasReproduced;
+	private boolean isAdult;
+	
+	private Utilities util;
+	
+	public Bonks(Position location, int lives, String s, String nm, boolean ia){
 		super(location, lives, nm);
 		sex = s;
+		isAdult = ia;
+		
+		hasReproduced = false;
+		util = new Utilities();
 	}
 
 	@Override
@@ -16,9 +29,42 @@ public class Bonks extends Mortal implements Being {
 
 	@Override
 	public void act() throws CannotActException {	
+		reproduce();
 		super.act(); 
+
 	}
 
+	public void reproduce(){
+		Bonks b;
+		Position loc;
+		String gender;
+		
+		
+		if(bonks != null){
+			for(int i = 0; i < bonks.size(); i++){
+				if(this.isAdult && bonks.get(i).isAdult && !this.hasReproduced && !bonks.get(i).hasReproduced 
+						&& !this.getSex().equalsIgnoreCase(bonks.get(i).getSex()) 
+						&& this.getLives() > 0 && bonks.get(i).getLives() > 0 
+						&& this.getLocation().getPositionX() == bonks.get(i).getLocation().getPositionX() 
+						&& this.getLocation().getPositionY() == bonks.get(i).getLocation().getPositionY()){
+					
+					int n = util.randomNum(2);
+					if(n == 1){
+						gender = "Boy";
+					} else {
+						gender = "Girl";
+					}
+					loc = this.getLocation();
+					b = new Bonks(loc, 1, gender, "bb(" + this.getName() + "," + bonks.get(i).getName() + ")", false);
+					bonks.add(b);
+					//babyBonks.add(b);
+					this.hasReproduced = true;
+					bonks.get(i).hasReproduced = true;
+				}
+			}
+		}
+	}
+	
 	@Override
 	public Position getLocation() {
 		// TODO Auto-generated method stub
@@ -35,7 +81,34 @@ public class Bonks extends Mortal implements Being {
 	}
 
 	
-	
+	public ArrayList<Bonks> getBabyBonks() {
+		return babyBonks;
+	}
+
+	public ArrayList<Bonks> getBonks() {
+		return bonks;
+	}
+
+	public boolean isHasReproduced() {
+		return hasReproduced;
+	}
+
+	public boolean isAdult() {
+		return isAdult;
+	}
+
+	public void setBabyBonks(ArrayList<Bonks> babyBonks) {
+		this.babyBonks = babyBonks;
+	}
+
+	public void setBonks(ArrayList<Bonks> bonks) {
+		this.bonks = bonks;
+	}
+
+	public void setHasReproduced(boolean hasReproduced) {
+		this.hasReproduced = hasReproduced;
+	}
+
 	@Override
 	public String toString() {
 		return "Bonks [sex=" + sex + "]";

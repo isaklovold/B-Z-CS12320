@@ -4,14 +4,14 @@ public class Mortal implements Being{
 	private Position location;
 	private int lives;
 	private String name;
-	private Movement movement;
+	private Utilities util;
 	
 	public Mortal(Position loc, int liv, String nm){
 		location = loc;
 		lives = liv;
 		name = nm;
 		
-		movement = new Movement();
+		util = new Utilities();
 	}
 
 	@Override
@@ -23,7 +23,7 @@ public class Mortal implements Being{
 	@Override
 	public void act() throws CannotActException {
 		if(this.getLives() > 0){
-			this.setLocation(movement.move(this.getLocation(), 5)); // @@@@@@ CHANGE THE EDGE (NUMBER) @@@@@
+			this.setLocation(util.movement(this.getLocation(), 20)); // @@@@@@ CHANGE THE EDGE (NUMBER) @@@@@
 		}
 	}
 
@@ -43,18 +43,8 @@ public class Mortal implements Being{
 		return lives;
 	}
 
-	
-	
-	public Movement getMovement() {
-		return movement;
-	}
-
 	public void setName(String name) {
 		this.name = name;
-	}
-
-	public void setMovement(Movement movement) {
-		this.movement = movement;
 	}
 
 	public void setLives(int lives) {

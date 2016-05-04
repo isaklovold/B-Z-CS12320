@@ -10,6 +10,7 @@ public class Game {
 	private int numBonks, numZaps;
 	private ArrayList<Being>[][] world;
 	private ArrayList<Bonks> bonks;
+	private ArrayList<Bonks> babyBonks;
 	private ArrayList<Zaps> zaps;
 	private ArrayList<Mortal> mortals;
 	
@@ -31,6 +32,7 @@ public class Game {
 		
 		world = new ArrayList[rows][cols];
 		bonks = new ArrayList<Bonks>();
+		babyBonks = new ArrayList<Bonks>();
 		zaps = new ArrayList<Zaps>();
 		mortals = new ArrayList<Mortal>();
 		
@@ -46,9 +48,11 @@ public class Game {
 	public void startGame() throws CannotActException{
 		do {
 			try {
-				for(int i = 0; i < mortals.size(); i++){
-					System.out.println("first: " + mortals.get(i).getName() + " " + mortals.get(i).getLives() + " (" + mortals.get(i).getLocation().getPositionX() + "," + mortals.get(i).getLocation().getPositionY() + ")");
-				}
+//				for(int i = 0; i < mortals.size(); i++){
+//					System.out.println("first: " + mortals.get(i).getName() + " " + mortals.get(i).getLives() 
+//							+ " (" + mortals.get(i).getLocation().getPositionX() + "," 
+//							+ mortals.get(i).getLocation().getPositionY() + ")");
+//				}
 				for(int i = 0; i < zaps.size(); i++){
 					zaps.get(i).setMortals(mortals);
 					zaps.get(i).act();
@@ -57,12 +61,27 @@ public class Game {
 				for(int i = 0; i < mortals.size(); i++){	
 					mortals.get(i).act();
 				}
-				for(int i = 0; i < mortals.size(); i++){
-					System.out.println("second: " + mortals.get(i).getName() + " " + mortals.get(i).getLives() + " (" + mortals.get(i).getLocation().getPositionX() + "," + mortals.get(i).getLocation().getPositionY() + ")");
+				for(int i = 0; i < bonks.size(); i++){
+					bonks.get(i).setHasReproduced(false);
 				}
+				for(int i = 0; i < bonks.size(); i++){
+					bonks.get(i).setBonks(bonks);
+					bonks.get(i).act();
+					bonks = bonks.get(i).getBonks();
+					babyBonks = bonks.get(i).getBabyBonks();
+				}
+//				for(int i = 0; i < mortals.size(); i++){
+//					System.out.println("second: " + mortals.get(i).getName() + " " + mortals.get(i).getLives() 
+//							+ " (" + mortals.get(i).getLocation().getPositionX() + "," 
+//							+ mortals.get(i).getLocation().getPositionY() + ")");
+//				}
 //				for(int i = 0; i < mortals.size(); i++){
 //					System.out.println(mortals.get(i).getName());
 //				}
+				System.out.println("\nDay. " + cycles);
+				for(int i = 0; i < bonks.size(); i++){
+					System.out.println("(" + bonks.get(i).getLocation().getPositionX() + "," + bonks.get(i).getLocation().getPositionY() + ") " + bonks.get(i).getName());
+				}
 				
 				//printGame();
 				cycles++;
@@ -99,7 +118,7 @@ public class Game {
 				sex = "Female";
 				name = "BF" + i;
 			}
-			Bonks b = new Bonks(location, 1, sex, name);
+			Bonks b = new Bonks(location, 1, sex, name, true);
 			bonks.add(b);
 			mortals.add(b);
 			//System.out.println(b.getName() + "(" + b.getLocation().toString() + ")");

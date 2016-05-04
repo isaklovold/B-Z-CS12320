@@ -7,7 +7,7 @@ public class Zaps implements Being {
 	
 	private Position location;
 	private String name;
-	private Movement movement;
+	private Utilities util;
 	private ArrayList<Mortal> mortals;
 	
 	
@@ -18,8 +18,8 @@ public class Zaps implements Being {
 	public Zaps(Position loc, String n){
 		location = loc;
 		name = n;
-		movement = new Movement();
 		mortals = new ArrayList<Mortal>();
+		util = new Utilities();
 	}
 	
 	@Override
@@ -30,7 +30,7 @@ public class Zaps implements Being {
 	
 	@Override
 	public void act() throws CannotActException {
-		this.setLocation(movement.move(this.getLocation(), 5)); // @@@@@@ CHANGE THE EDGE (NUMBER) @@@@@
+		this.setLocation(util.movement(this.getLocation(), 20)); // @@@@@@ CHANGE THE EDGE (NUMBER) @@@@@
 		zap();
 	}
 
@@ -63,10 +63,6 @@ public class Zaps implements Being {
 		this.location = location;
 	}
 
-	public Movement getMovement() {
-		return movement;
-	}
-
 	public ArrayList<Mortal> getMortals() {
 		return mortals;
 	}
@@ -75,9 +71,6 @@ public class Zaps implements Being {
 		this.name = name;
 	}
 
-	public void setMovement(Movement movement) {
-		this.movement = movement;
-	}
 
 	public void setMortals(ArrayList<Mortal> mortals) {
 		this.mortals = mortals;
