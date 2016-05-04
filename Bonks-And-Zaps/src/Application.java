@@ -1,6 +1,13 @@
 import java.io.IOException;
 import java.util.Scanner;
 
+/**
+ * Main class that runs the menu and game for Bonks And Zaps
+ * 
+ * @author Isak Wisth Løvold
+ * @version 1.0 (6th May 2016)
+ *
+ */
 
 public class Application {
 	
@@ -10,6 +17,10 @@ public class Application {
 	private int cycles;
 	private Game game;
 	
+	/**
+	 * Constructor of the Application Class
+	 * Initialising all the instance variables
+	 */
 	public Application(){
 		in = new Scanner(System.in);
 		rows = 5;
@@ -19,6 +30,11 @@ public class Application {
 		numZaps = 2;
 	}
 	
+	/**
+	 * Method that runs the menu and allow user to interact with the game
+	 * @throws IOException throws exception if input is illegal
+	 * @throws CannotActException call this class if being can't act
+	 */
 	public void runApp() throws IOException, CannotActException {
 		String choice;
 		System.out.println("@@@@@ HELLO - WELCOME BONKS AND ZAPS @@@@@");
@@ -43,6 +59,9 @@ public class Application {
 		} while (!choice.equals("Q"));
 	}
 	
+	/**
+	 * Changes settings for number of bonks, zaps, rows and columns
+	 */
 	public void settings() {
 		System.out.print("How many rows and columns do you want to play with?");
 		rows = in.nextInt();
@@ -58,6 +77,9 @@ public class Application {
 		System.out.println("The world now starts with " + numZaps + " Zaps");
 	}
 	
+	/**
+	 * Printing a menu to the console of what the user is allowed to do
+	 */
 	public void printMenu() {
 		System.out.println("\nThe game consist of a (" + rows + "x" + cols + ") Grid "
 						+ "with a start of \n" + numBonks + " Bonks, " + numZaps + " Zaps "
@@ -71,6 +93,12 @@ public class Application {
 						+ "Q = To Quit");
 	}
 	
+	/**
+	 * Creating a copy of the Application that runs the game
+	 * @param args
+	 * @throws IOException throws exception if input is illegal
+	 * @throws CannotActException call this class if being can't act
+	 */
 	public static void main(String[] args) throws IOException, CannotActException {
 		Application app = new Application();
 		app.runApp();
