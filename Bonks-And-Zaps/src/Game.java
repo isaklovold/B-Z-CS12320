@@ -10,9 +10,14 @@ public class Game {
 	private int numBonks, numZaps;
 	private ArrayList<Being>[][] world;
 	private ArrayList<Bonks> bonks;
-	private ArrayList<Bonks> babyBonks;
 	private ArrayList<Zaps> zaps;
 	private ArrayList<Mortal> mortals;
+	
+	private int bonksAlive;
+	private int babyBonksAlive;
+	private int matureBonks;
+	private int babyBonks;
+	
 	
 	private int cycles;
 	private final int MAX_CYCLES;
@@ -32,7 +37,6 @@ public class Game {
 		
 		world = new ArrayList[rows][cols];
 		bonks = new ArrayList<Bonks>();
-		babyBonks = new ArrayList<Bonks>();
 		zaps = new ArrayList<Zaps>();
 		mortals = new ArrayList<Mortal>();
 		
@@ -48,36 +52,10 @@ public class Game {
 	public void startGame() throws CannotActException{
 		do {
 			try {
-//				for(int i = 0; i < mortals.size(); i++){
-//					System.out.println("first: " + mortals.get(i).getName() + " " + mortals.get(i).getLives() 
-//							+ " (" + mortals.get(i).getLocation().getPositionX() + "," 
-//							+ mortals.get(i).getLocation().getPositionY() + ")");
-//				}
-				for(int i = 0; i < zaps.size(); i++){
-					zaps.get(i).setMortals(mortals);
-					zaps.get(i).act();
-					mortals = zaps.get(i).getMortals();
-				}
-				for(int i = 0; i < mortals.size(); i++){	
-					mortals.get(i).act();
-				}
-				for(int i = 0; i < bonks.size(); i++){
-					bonks.get(i).setHasReproduced(false);
-				}
-				for(int i = 0; i < bonks.size(); i++){
-					bonks.get(i).setBonks(bonks);
-					bonks.get(i).act();
-					bonks = bonks.get(i).getBonks();
-					babyBonks = bonks.get(i).getBabyBonks();
-				}
-//				for(int i = 0; i < mortals.size(); i++){
-//					System.out.println("second: " + mortals.get(i).getName() + " " + mortals.get(i).getLives() 
-//							+ " (" + mortals.get(i).getLocation().getPositionX() + "," 
-//							+ mortals.get(i).getLocation().getPositionY() + ")");
-//				}
-//				for(int i = 0; i < mortals.size(); i++){
-//					System.out.println(mortals.get(i).getName());
-//				}
+				addMortals();
+				actZaps();
+				actMortals();
+				actBonks();
 				System.out.println("\nDay. " + cycles);
 				for(int i = 0; i < bonks.size(); i++){
 					System.out.println("(" + bonks.get(i).getLocation().getPositionX() + "," + bonks.get(i).getLocation().getPositionY() + ") " + bonks.get(i).getName());
@@ -92,9 +70,56 @@ public class Game {
 			}
 		} while(cycles <= MAX_CYCLES);
 		
-		System.out.println("Game-world is over, stats:");
-		System.out.println("Bonks alive: " + "@@ add code for bonks alive after game @@");
-		System.out.println("Baby Bonks alive: " + "@@ add code for baby bonks alive after game @@");
+		for(int i = 0; i < bonks.size(); i++){
+			if(bonks.get(i).isAdult()){
+				matureBonks += 1;
+				if(bonks.get(i).getLives() > 0 && bonks.get(i).isAdult()){
+					bonksAlive += 1;
+				} 
+			} else {
+				babyBonks += 1;
+				if(bonks.get(i).getLives() > 0 && !bonks.get(i).isAdult()){
+					babyBonksAlive += 1;
+				}
+			}
+		}
+		
+		System.out.println("\nGame-world is over, stats:");
+		System.out.println(bonksAlive + "/" + matureBonks + " Mature Bonks is still alive");
+		System.out.println(babyBonksAlive + "/" + babyBonks + " Baby Bonks is still alive");
+	}
+	
+	public void addMortals(){
+		for(int i = 0; i < bonks.size(); i++){
+			mortals.add(bonks.get(i));
+		}
+	}
+	
+	public void actZaps() throws CannotActException{
+		for(int i = 0; i < zaps.size(); i++){
+			zaps.get(i).setSquare(rows);
+			zaps.get(i).setMortals(mortals);
+			zaps.get(i).act();
+			mortals = zaps.get(i).getMortals();
+		}
+	}
+	
+	public void actBonks() throws CannotActException{
+		for(int i = 0; i < bonks.size(); i++){
+			bonks.get(i).setHasReproduced(false);
+		}
+		for(int i = 0; i < bonks.size(); i++){
+			bonks.get(i).setBonks(bonks);
+			bonks.get(i).act();
+			bonks = bonks.get(i).getBonks();
+		}
+	}
+	
+	public void actMortals() throws CannotActException{
+		for(int i = 0; i < mortals.size(); i++){	
+			mortals.get(i).setSquare(rows);
+//			mortals.get(i).act();
+		}
 	}
 	
 	// Creating Bonks and Zaps
@@ -120,7 +145,6 @@ public class Game {
 			}
 			Bonks b = new Bonks(location, 1, sex, name, true);
 			bonks.add(b);
-			mortals.add(b);
 			//System.out.println(b.getName() + "(" + b.getLocation().toString() + ")");
 		}
 		for(int i = 0; i < numZaps; i++){
@@ -165,8 +189,8 @@ public class Game {
 		ArrayList<Being> countBeings = new ArrayList<Being>();
 
 		for(int i = 0; i <= rows; i++){
-			System.out.println();
-
+			System.out.println("\nDay. " + cycles);
+			
 			for(int j = 0; j <= cols; j++){
 //				for(int k = 0; k < bonks.size(); k++){
 //					if(bonks.get(k).getLocation().getPositionX() == i && bonks.get(k).getLocation().getPositionY() == j){
@@ -268,9 +292,14 @@ public class Game {
 
 	@Override
 	public String toString() {
-		return "Game [rows=" + rows + ", cols=" + cols + ", world="
+		return "Game [rows=" + rows + ", cols=" + cols + ", numBonks="
+				+ numBonks + ", numZaps=" + numZaps + ", world="
 				+ Arrays.toString(world) + ", bonks=" + bonks + ", zaps="
-				+ zaps + "]";
+				+ zaps + ", mortals=" + mortals + ", bonksAlive=" + bonksAlive
+				+ ", babyBonksAlive=" + babyBonksAlive + ", matureBonks="
+				+ matureBonks + ", babyBonks=" + babyBonks + ", cycles="
+				+ cycles + ", MAX_CYCLES=" + MAX_CYCLES + ", numBeings="
+				+ numBeings + ", rand=" + rand + "]";
 	}
 		
 }

@@ -10,6 +10,8 @@ public class Zaps implements Being {
 	private Utilities util;
 	private ArrayList<Mortal> mortals;
 	
+	private int square;
+	
 	
 	public Zaps(){
 		
@@ -30,7 +32,7 @@ public class Zaps implements Being {
 	
 	@Override
 	public void act() throws CannotActException {
-		this.setLocation(util.movement(this.getLocation(), 20)); // @@@@@@ CHANGE THE EDGE (NUMBER) @@@@@
+		this.setLocation(util.movement(this.getLocation(), square)); // @@@@@@ CHANGE THE EDGE (NUMBER) @@@@@
 		zap();
 	}
 
@@ -40,9 +42,7 @@ public class Zaps implements Being {
 			if(mortals.get(i).getLives() > 0){
 				if(this.getLocation().getPositionX() == mortals.get(i).getLocation().getPositionX()
 						&& this.getLocation().getPositionY() == mortals.get(i).getLocation().getPositionY()){
-//					System.out.println(mortals.get(i).getName() + " " + mortals.get(i).getLives());
 					mortals.get(i).setLives(mortals.get(i).getLives() - damage);
-//					System.out.println(mortals.get(i).getName() + " " + mortals.get(i).getLives());
 					if(mortals.get(i).getLives() <= 0){
 						mortals.get(i).setName(mortals.get(i).getName() + "-D");
 					} 
@@ -85,9 +85,14 @@ public class Zaps implements Being {
 		Zaps.damage = damage;
 	}
 
-	@Override
-	public String toString() {
-		return "Zaps [location=" + location + ", name=" + name + "]";
+	public void setSquare(int square) {
+		this.square = square;
 	}
 
+	@Override
+	public String toString() {
+		return "Zaps [location=" + location + ", name=" + name + ", util="
+				+ util + ", mortals=" + mortals + ", square=" + square + "]";
+	}
+	
 }

@@ -6,6 +6,8 @@ public class Mortal implements Being{
 	private String name;
 	private Utilities util;
 	
+	private int square;
+	
 	public Mortal(Position loc, int liv, String nm){
 		location = loc;
 		lives = liv;
@@ -23,7 +25,7 @@ public class Mortal implements Being{
 	@Override
 	public void act() throws CannotActException {
 		if(this.getLives() > 0){
-			this.setLocation(util.movement(this.getLocation(), 20)); // @@@@@@ CHANGE THE EDGE (NUMBER) @@@@@
+			this.setLocation(util.movement(this.getLocation(), square)); // @@@@@@ CHANGE THE EDGE (NUMBER) @@@@@
 		}
 	}
 
@@ -51,9 +53,14 @@ public class Mortal implements Being{
 		this.lives = lives;
 	}
 
+	public void setSquare(int square) {
+		this.square = square;
+	}
+
 	@Override
 	public String toString() {
-		return "Mortal [location=" + location + ", lives=" + lives + "]";
+		return "Mortal [location=" + location + ", lives=" + lives + ", name="
+				+ name + ", util=" + util + ", square=" + square + "]";
 	}
 	
 }

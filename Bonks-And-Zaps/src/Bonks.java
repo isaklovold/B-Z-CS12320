@@ -3,7 +3,6 @@ import java.util.ArrayList;
 
 public class Bonks extends Mortal implements Being {
 	
-	private ArrayList<Bonks> babyBonks;
 	private ArrayList<Bonks> bonks;
 	
 	private String sex;
@@ -23,15 +22,13 @@ public class Bonks extends Mortal implements Being {
 
 	@Override
 	public String getName() {
-		// TODO Auto-generated method stub
 		return super.getName();
 	}
 
 	@Override
 	public void act() throws CannotActException {	
-		reproduce();
 		super.act(); 
-
+		reproduce();
 	}
 
 	public void reproduce(){
@@ -56,8 +53,7 @@ public class Bonks extends Mortal implements Being {
 					}
 					loc = this.getLocation();
 					b = new Bonks(loc, 1, gender, "bb(" + this.getName() + "," + bonks.get(i).getName() + ")", false);
-					bonks.add(b);
-					//babyBonks.add(b);
+					bonks.add(b);					
 					this.hasReproduced = true;
 					bonks.get(i).hasReproduced = true;
 				}
@@ -80,11 +76,6 @@ public class Bonks extends Mortal implements Being {
 		return sex;
 	}
 
-	
-	public ArrayList<Bonks> getBabyBonks() {
-		return babyBonks;
-	}
-
 	public ArrayList<Bonks> getBonks() {
 		return bonks;
 	}
@@ -97,10 +88,6 @@ public class Bonks extends Mortal implements Being {
 		return isAdult;
 	}
 
-	public void setBabyBonks(ArrayList<Bonks> babyBonks) {
-		this.babyBonks = babyBonks;
-	}
-
 	public void setBonks(ArrayList<Bonks> bonks) {
 		this.bonks = bonks;
 	}
@@ -111,7 +98,9 @@ public class Bonks extends Mortal implements Being {
 
 	@Override
 	public String toString() {
-		return "Bonks [sex=" + sex + "]";
+		return "Bonks [bonks=" + bonks + ", sex=" + sex + ", hasReproduced="
+				+ hasReproduced + ", isAdult=" + isAdult + ", util=" + util
+				+ "]";
 	}
 
 }
