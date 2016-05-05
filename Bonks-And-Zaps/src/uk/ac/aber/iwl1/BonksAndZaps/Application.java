@@ -27,11 +27,11 @@ public class Application {
 	 */
 	public Application(){
 		in = new Scanner(System.in);
-		rows = 5;
-		cols = 5;
-		numBonks = 5;
-		cycles = 5;
-		numZaps = 2;
+		rows = 20;
+		cols = 20;
+		numBonks = 20;
+		cycles = 19;
+		numZaps = 5;
 	}
 	
 	/**

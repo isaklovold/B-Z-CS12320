@@ -92,12 +92,12 @@ public class Game {
 				actZaps();
 				actMortals();
 				actBonks();
-				System.out.println("\nDay. " + cycles);
-				for(int i = 0; i < bonks.size(); i++){
-					System.out.println("(" + bonks.get(i).getLocation().getPositionX() + "," + bonks.get(i).getLocation().getPositionY() + ") " + bonks.get(i).getName());
-				}
+//				System.out.println("\nDay. " + cycles);
+//				for(int i = 0; i < bonks.size(); i++){
+//					System.out.println("(" + bonks.get(i).getLocation().getPositionX() + "," + bonks.get(i).getLocation().getPositionY() + ") " + bonks.get(i).getName());
+//				}
 				
-				//printGame();
+				printGame();
 				cycles++;
 				Thread.sleep(1000);
 			} catch (InterruptedException e) {
@@ -223,34 +223,36 @@ public class Game {
 	 */
 	public void printGame() {
 		ArrayList<Being> countBeings = new ArrayList<Being>();
-
+		
+		System.out.println("\nDay. " + (cycles + 1));
+		
 		for(int i = 0; i <= rows; i++){
-			System.out.println("\nDay. " + cycles);
-			
 			for(int j = 0; j <= cols; j++){
-//				for(int k = 0; k < bonks.size(); k++){
-//					if(bonks.get(k).getLocation().getPositionX() == i && bonks.get(k).getLocation().getPositionY() == j){
-//						countBeings.add(bonks.get(k));
-//					} 
-//				}
+				for(int k = 0; k < bonks.size(); k++){
+					if(bonks.get(k).getLocation().getPositionX() == i && bonks.get(k).getLocation().getPositionY() == j){
+						countBeings.add(bonks.get(k));
+					} 
+				}
 				for(int h = 0; h < zaps.size(); h++){
 					if(zaps.get(h).getLocation().getPositionX() == i && zaps.get(h).getLocation().getPositionY() == j){
 						countBeings.add(zaps.get(h));
 					}
 				}
-				for(int m = 0; m < mortals.size(); m++){
-					if(mortals.get(m).getLocation().getPositionX() == i && mortals.get(m).getLocation().getPositionY() == j){
-						countBeings.add(mortals.get(m));
-					}
-				}
+				
+				/*
+				 *  Uncomment the section below if you want to check for all mortals
+				 * 
+				 * for(int m = 0; m < mortals.size(); m++){
+				 *	if(mortals.get(m).getLocation().getPositionX() == i && mortals.get(m).getLocation().getPositionY() == j){
+				 *		countBeings.add(mortals.get(m));
+				 *	}
+				 *}
+				 */
+				
 				
 				System.out.print("[" + i + ", " + j + "] = " + "[");
-				//System.out.print("[");
 				for(int b = 0; b < countBeings.size(); b++){
 					System.out.print(countBeings.get(b).getName());
-//					if(countBeings.size() > 1){
-//						
-//					}
 					countBeings.remove(b);
 				}
 				System.out.println("]");

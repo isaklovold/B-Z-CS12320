@@ -13,8 +13,8 @@ import uk.ac.aber.iwl1.BonksAndZaps.mechanics.Position;
 
 public class Utilities {
 
-	Random rand;
-	Position location;
+	private Random rand;
+	private Position location;
 	
 	/**
 	 * Class constructor
