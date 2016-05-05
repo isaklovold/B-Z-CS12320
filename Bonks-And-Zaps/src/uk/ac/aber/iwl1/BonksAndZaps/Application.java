@@ -27,11 +27,11 @@ public class Application {
 	 */
 	public Application(){
 		in = new Scanner(System.in);
-		rows = 20;
-		cols = 20;
-		numBonks = 20;
-		numZaps = 5;
-		cycles = 20;
+		rows = 5;
+		cols = 5;
+		numBonks = 5;
+		numZaps = 1;
+		cycles = 5;
 	}
 	
 	/**
@@ -67,18 +67,23 @@ public class Application {
 	 * Changes settings for number of bonks, zaps, rows and columns
 	 */
 	public void settings() {
-		System.out.print("How many rows and columns do you want to play with?");
+		System.out.print("How many rows and columns do you want to play with? ");
 		rows = in.nextInt();
 		cols = rows;
 		System.out.println("The world is now changed to a (" + rows + "x" + cols + ") grid");
 		
-		System.out.print("How many Bonks do you wish to start with?");
+		System.out.print("How many Bonks do you wish to start with? ");
 		numBonks = in.nextInt();
 		System.out.println("The world now starts with " + numBonks + " Bonks");
 		
-		System.out.print("How many Zaps do you wish to start with?");
+		System.out.print("How many Zaps do you wish to start with? ");
 		numZaps = in.nextInt();
 		System.out.println("The world now starts with " + numZaps + " Zaps");
+		
+		System.out.print("How many cycles do you want the game to run over? ");
+		cycles = in.nextInt();
+		System.out.println("The world will now play through " + cycles + " Cycles");
+		
 	}
 	
 	/**
@@ -87,7 +92,7 @@ public class Application {
 	public void printMenu() {
 		System.out.println("\nThe game consist of a (" + rows + "x" + cols + ") Grid "
 						+ "with a start of \n" + numBonks + " Bonks, " + numZaps + " Zaps "
-						+ "and " + (cycles + 1) + " Cycels! \n"
+						+ "and " + cycles + " Cycels! \n"
 						+ "BM = Bonk Male \n"
 						+ "BF = Bonk Female \n"
 						+ "bb(x,n) = Baby Bonk with x and n as parents \n"

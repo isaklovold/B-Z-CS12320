@@ -15,7 +15,6 @@ public class Utilities {
 
 	private Random rand;
 	private Position location;
-	private boolean movement;
 	
 	/**
 	 * Class constructor
@@ -34,89 +33,10 @@ public class Utilities {
 		int x = loc.getPositionX();  
 		int y = loc.getPositionY();
 		int n;	
-		
-//		if(x <= 0 && y <= 0){
-//			if(n == 0 || n == 1){
-//				x += 1;
-//			} else {
-//				y += 1;
-//			}
-//		} else if(x >= edge && y >= edge){
-//			if(n == 0 || n == 1){
-//				x -= 1;
-//			} else if(n == 2) {
-//				y -= 1;
-//			} else {
-//				x -= 1;
-//				y -= 1;
-//			}
-//		} else if(x <= 0 && y >= edge){
-//			if(n == 0 || n == 1){
-//				x += 1;
-//			} else if(n == 2) {
-//				y -= 1;
-//			} else {
-//				x += 1;
-//				y -= 1;
-//			}
-//		} else if(x >= edge && y <= 0){
-//			if(n == 0 || n == 1){
-//				x -= 1;
-//			} else if(n == 2) {
-//				y += 1;
-//			} else {
-//				x -= 1;
-//				y += 1;
-//			}
-//		} else if((x > 0 && x < edge) && (y > 0 && y < edge)){
-//			if(n == 0){
-//				x += 1;
-//			} else if(n == 1) {
-//				y += 1;
-//			} else if(n == 2){
-//				x -= 1;
-//			} else {
-//				x -= 1;
-//				y += 1;
-//			}
-//		} else if(x <= 0 && y < edge){
-//			if(n == 0 || n == 1){
-//				x += 1;
-//			} else if(n == 2) {
-//				y += 1;
-//			} else {
-//				y -= 1;
-//			}
-//		} else if(x >= edge && y < edge){
-//			if(n == 0 || n == 1){
-//				x -= 1;
-//			} else if(n == 2) {
-//				y += 1;
-//			} else {
-//				y -= 1;
-//			}
-//		} else if(x < edge && y <= 0){
-//			if(n == 0 || n == 1){
-//				y += 1;
-//			} else if(n == 2) {
-//				x += 1;
-//			} else {
-//				x -= 1;
-//			}
-//		} else if(x < edge && y >= edge){
-//			if(n == 0 || n == 1){
-//				y -= 1;
-//			} else if(n == 2) {
-//				x += 1;
-//			} else {
-//				x -= 1;
-//			}
-//		}
-		
-		movement = false;
-		for(int i = 0; i < 8; i++){
+			
+		for(;;){
 			n = randomNum(8);
-			if(n == 6){ // MOVE RIGHT
+			if(n == 0){ // MOVE RIGHT
 				if(x < edge){
 					x += 1;
 					break;
@@ -137,7 +57,7 @@ public class Utilities {
 					break;
 				} 
 			} else if(n == 1){ // MOVE UP RIGHT
-				if(x < edge && y < 0){
+				if(x < edge && y > 0){
 					x += 1;
 					y -= 1;
 					break;
@@ -154,7 +74,7 @@ public class Utilities {
 					y += 1;
 					break;
 				} 
-			} else if(n == 7){ // MOVE DOWN LEFT
+			} else { // MOVE DOWN LEFT
 				if(x > 0 && y < edge){
 					x -= 1;
 					y += 1;
@@ -162,7 +82,7 @@ public class Utilities {
 				} 
 			}
 		}
-		
+			
 		location = new Position(x, y);
 	
 		return location;

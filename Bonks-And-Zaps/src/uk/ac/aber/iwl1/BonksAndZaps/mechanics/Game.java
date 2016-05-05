@@ -59,8 +59,8 @@ public class Game {
 	 * @throws CannotActException call this class if being can't act
 	 */
 	public Game(int rows, int cols, int numBonks, int numZaps, int MAX_C) throws CannotActException{
-		this.rows = rows;
-		this.cols = cols;
+		this.rows = rows - 1;
+		this.cols = cols - 1;
 		this.numBonks = numBonks;
 		this.numZaps = numZaps;
 		
@@ -71,7 +71,7 @@ public class Game {
 		
 		numBeings = numBonks + numZaps;
 		cycles = 0;
-		MAX_CYCLES = MAX_C;	
+		MAX_CYCLES = MAX_C - 1;	
 		
 		util = new Utilities();
 
@@ -90,17 +90,10 @@ public class Game {
 			try {
 				addMortals();
 				actZaps();
-				//actMortals();
+				actMortals();
 				actBonks();
-				System.out.println("\nDay. " + cycles);
-				for(int i = 0; i < bonks.size(); i++){
-					System.out.println("(" + bonks.get(i).getLocation().getPositionX() + "," + bonks.get(i).getLocation().getPositionY() + ") " + bonks.get(i).getName());
-				}
-				for(int i = 0; i < zaps.size(); i++){
-					System.out.println("(" + zaps.get(i).getLocation().getPositionX() + "," + zaps.get(i).getLocation().getPositionY() + ") " + zaps.get(i).getName());
-				}
 				
-				//printGame();
+				printGame();
 				cycles++;
 				Thread.sleep(1000);
 			} catch (InterruptedException e) {
@@ -126,6 +119,8 @@ public class Game {
 		System.out.println("\nGame-world is over, stats:");
 		System.out.println(bonksAlive + "/" + matureBonks + " Mature Bonks is still alive");
 		System.out.println(babyBonksAlive + "/" + babyBonks + " Baby Bonks is still alive");
+		System.out.println("Zaps have killed " + ((matureBonks - bonksAlive) + (babyBonks - babyBonksAlive)) 
+				+ "/" + (matureBonks + babyBonks) + " in total!");
 	}
 	
 	/**
@@ -171,15 +166,16 @@ public class Game {
 	
 	/**
 	 * Let the mortals class know how big the grid world is
+	 * Passes the size of the grid to every mortals(bonks) when moving in act()
 	 * Uncomment the line inside if needed to use the act() in mortals class
 	 * @throws CannotActException call this class if being can't act
 	 */
-//	public void actMortals() throws CannotActException{
-//		for(int i = 0; i < mortals.size(); i++){	
-//			mortals.get(i).setSquare(rows);
-////			mortals.get(i).act();
-//		}
-//	}
+	public void actMortals() throws CannotActException{
+		for(int i = 0; i < mortals.size(); i++){	
+			mortals.get(i).setSquare(rows);
+//			mortals.get(i).act();
+		}
+	}
 	
 	/**
 	 * Creating bonks and zaps before the game starts and
@@ -252,10 +248,20 @@ public class Game {
 				 *}
 				 */
 				
-			
-				System.out.print("[" + i + ", " + j + "] = " + "[");
+				/*
+				 * Uncomment this section and comment out the section 
+				 * 
+				for(int i = 0; i < bonks.size(); i++){
+					System.out.println("(" + bonks.get(i).getLocation().getPositionX() + "," + bonks.get(i).getLocation().getPositionY() + ") " + bonks.get(i).getName());
+				}
+				for(int i = 0; i < zaps.size(); i++){
+					System.out.println("(" + zaps.get(i).getLocation().getPositionX() + "," + zaps.get(i).getLocation().getPositionY() + ") " + zaps.get(i).getName());
+				}*/
+				
+				
+				System.out.print("[" + (i + 1) + ", " + (j + 1) + "] = " + "[");
 				for(int b = 0; b < countBeings.size(); b++){
-					System.out.print(countBeings.get(b).getName() + "(" + countBeings.get(b).getLocation().getPositionX() + "," + countBeings.get(b).getLocation().getPositionY() + ", ");
+					System.out.print(countBeings.get(b).getName());
 					countBeings.remove(b);
 				}
 				System.out.println("]");
