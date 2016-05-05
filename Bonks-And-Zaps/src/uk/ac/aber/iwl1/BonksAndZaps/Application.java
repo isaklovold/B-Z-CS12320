@@ -2,6 +2,11 @@ package uk.ac.aber.iwl1.BonksAndZaps;
 import java.io.IOException;
 import java.util.Scanner;
 
+import javafx.scene.Scene;
+import javafx.scene.control.Label;
+import javafx.scene.layout.StackPane;
+import javafx.scene.text.Font;
+import javafx.stage.Stage;
 import uk.ac.aber.iwl1.BonksAndZaps.mechanics.CannotActException;
 import uk.ac.aber.iwl1.BonksAndZaps.mechanics.Game;
 
@@ -13,7 +18,7 @@ import uk.ac.aber.iwl1.BonksAndZaps.mechanics.Game;
  *
  */
 
-public class Application {
+public class Application extends javafx.application.Application {
 	
 	private Scanner in;
 	private int rows, cols;
@@ -27,11 +32,11 @@ public class Application {
 	 */
 	public Application(){
 		in = new Scanner(System.in);
-		rows = 5;
-		cols = 5;
-		numBonks = 5;
-		numZaps = 1;
-		cycles = 5;
+		rows = 20;
+		cols = 20;
+		numBonks = 20;
+		numZaps = 5;
+		cycles = 20;
 	}
 	
 	/**
@@ -111,6 +116,21 @@ public class Application {
 	public static void main(String[] args) throws IOException, CannotActException {
 		Application app = new Application();
 		app.runApp();
+		launch(args);
+	}
+
+	@Override
+	public void start(Stage stage) throws Exception {
+		Label message = new Label("Heisann");
+		message.setFont(new Font(100));
+		stage.setTitle("Hola");
+		
+		StackPane root = new StackPane();
+		
+		root.getChildren().add(message);
+		
+		stage.setScene(new Scene(root, 700, 250));
+		stage.show();
 	}
 
 }

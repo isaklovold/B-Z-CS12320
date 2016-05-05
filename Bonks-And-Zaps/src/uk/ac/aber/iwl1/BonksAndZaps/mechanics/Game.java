@@ -251,10 +251,10 @@ public class Game {
 				/*
 				 * Uncomment this section and comment out the section 
 				 * 
-				for(int i = 0; i < bonks.size(); i++){
+				for(int b = 0; i < bonks.size(); i++){
 					System.out.println("(" + bonks.get(i).getLocation().getPositionX() + "," + bonks.get(i).getLocation().getPositionY() + ") " + bonks.get(i).getName());
 				}
-				for(int i = 0; i < zaps.size(); i++){
+				for(int z = 0; i < zaps.size(); i++){
 					System.out.println("(" + zaps.get(i).getLocation().getPositionX() + "," + zaps.get(i).getLocation().getPositionY() + ") " + zaps.get(i).getName());
 				}*/
 				
