@@ -30,8 +30,8 @@ public class Application {
 		rows = 20;
 		cols = 20;
 		numBonks = 20;
-		cycles = 19;
 		numZaps = 5;
+		cycles = 20;
 	}
 	
 	/**
@@ -87,7 +87,7 @@ public class Application {
 	public void printMenu() {
 		System.out.println("\nThe game consist of a (" + rows + "x" + cols + ") Grid "
 						+ "with a start of \n" + numBonks + " Bonks, " + numZaps + " Zaps "
-						+ "and " + cycles + " Cycels! \n"
+						+ "and " + (cycles + 1) + " Cycels! \n"
 						+ "BM = Bonk Male \n"
 						+ "BF = Bonk Female \n"
 						+ "bb(x,n) = Baby Bonk with x and n as parents \n"

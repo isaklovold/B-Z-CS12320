@@ -41,7 +41,6 @@ public class Mortal implements Being{
 	 */
 	@Override
 	public String getName() {
-		// TODO Auto-generated method stub
 		return name;
 	}
 
@@ -53,7 +52,7 @@ public class Mortal implements Being{
 	@Override
 	public void act() throws CannotActException {
 		if(this.getLives() > 0){
-			this.setLocation(util.movement(this.getLocation(), square)); // @@@@@@ CHANGE THE EDGE (NUMBER) @@@@@
+			this.setLocation(util.movement(this.getLocation(), square)); 
 		}
 	}
 

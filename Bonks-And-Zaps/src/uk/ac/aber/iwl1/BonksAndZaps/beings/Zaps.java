@@ -58,7 +58,7 @@ public class Zaps implements Being {
 	 */
 	@Override
 	public void act() throws CannotActException {
-		this.setLocation(util.movement(this.getLocation(), square)); // @@@@@@ CHANGE THE EDGE (NUMBER) @@@@@
+		this.setLocation(util.movement(this.getLocation(), square)); 
 		zap();
 	}
 

@@ -90,14 +90,17 @@ public class Game {
 			try {
 				addMortals();
 				actZaps();
-				actMortals();
+				//actMortals();
 				actBonks();
-//				System.out.println("\nDay. " + cycles);
-//				for(int i = 0; i < bonks.size(); i++){
-//					System.out.println("(" + bonks.get(i).getLocation().getPositionX() + "," + bonks.get(i).getLocation().getPositionY() + ") " + bonks.get(i).getName());
-//				}
+				System.out.println("\nDay. " + cycles);
+				for(int i = 0; i < bonks.size(); i++){
+					System.out.println("(" + bonks.get(i).getLocation().getPositionX() + "," + bonks.get(i).getLocation().getPositionY() + ") " + bonks.get(i).getName());
+				}
+				for(int i = 0; i < zaps.size(); i++){
+					System.out.println("(" + zaps.get(i).getLocation().getPositionX() + "," + zaps.get(i).getLocation().getPositionY() + ") " + zaps.get(i).getName());
+				}
 				
-				printGame();
+				//printGame();
 				cycles++;
 				Thread.sleep(1000);
 			} catch (InterruptedException e) {
@@ -171,12 +174,12 @@ public class Game {
 	 * Uncomment the line inside if needed to use the act() in mortals class
 	 * @throws CannotActException call this class if being can't act
 	 */
-	public void actMortals() throws CannotActException{
-		for(int i = 0; i < mortals.size(); i++){	
-			mortals.get(i).setSquare(rows);
-//			mortals.get(i).act();
-		}
-	}
+//	public void actMortals() throws CannotActException{
+//		for(int i = 0; i < mortals.size(); i++){	
+//			mortals.get(i).setSquare(rows);
+////			mortals.get(i).act();
+//		}
+//	}
 	
 	/**
 	 * Creating bonks and zaps before the game starts and
@@ -223,7 +226,7 @@ public class Game {
 	 */
 	public void printGame() {
 		ArrayList<Being> countBeings = new ArrayList<Being>();
-		
+				
 		System.out.println("\nDay. " + (cycles + 1));
 		
 		for(int i = 0; i <= rows; i++){
@@ -249,14 +252,17 @@ public class Game {
 				 *}
 				 */
 				
-				
+			
 				System.out.print("[" + i + ", " + j + "] = " + "[");
 				for(int b = 0; b < countBeings.size(); b++){
-					System.out.print(countBeings.get(b).getName());
+					System.out.print(countBeings.get(b).getName() + "(" + countBeings.get(b).getLocation().getPositionX() + "," + countBeings.get(b).getLocation().getPositionY() + ", ");
 					countBeings.remove(b);
 				}
 				System.out.println("]");
+
 			}
+
+			
 		}
 	}
 	

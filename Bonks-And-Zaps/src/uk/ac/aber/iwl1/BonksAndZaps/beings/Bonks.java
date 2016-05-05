@@ -55,8 +55,10 @@ public class Bonks extends Mortal implements Being {
 	 */
 	@Override
 	public void act() throws CannotActException {	
-		super.act(); 
-		reproduce();
+		if(this.getLives() > 0){
+			super.act(); 
+			reproduce();
+		}
 	}
 
 	/**
