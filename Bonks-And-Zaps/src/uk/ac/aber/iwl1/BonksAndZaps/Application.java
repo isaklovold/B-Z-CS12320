@@ -62,6 +62,9 @@ public class Application extends javafx.application.Application {
 		
 	}
 	
+	/**
+	 * This method runs the GUI
+	 */
 	@Override
 	public void start(Stage stage) throws Exception {				
 		printMenu();
@@ -233,6 +236,9 @@ public class Application extends javafx.application.Application {
 		stage.show();
 	}
 	
+	/**
+	 * This method updates the information for the array gameInfoLabels
+	 */
 	public void updateGUI(){
 		gameInfoLabels[0].setText(String.valueOf(rows));
 		gameInfoLabels[1].setText(String.valueOf(numBonks));
@@ -240,6 +246,9 @@ public class Application extends javafx.application.Application {
 		gameInfoLabels[3].setText(String.valueOf(this.cycles));
 	}
 	
+	/**
+	 * This method updates the information for the array resultInfo
+	 */
 	public void updateResults(){
 		resultInfo[1].setText(resultInfo[1].getText() + String.valueOf(game.bonksAlive) + "/" + String.valueOf(game.matureBonks));
 		resultInfo[2].setText(resultInfo[2].getText() + String.valueOf(game.babyBonksAlive) + "/" + String.valueOf(game.babyBonks));
