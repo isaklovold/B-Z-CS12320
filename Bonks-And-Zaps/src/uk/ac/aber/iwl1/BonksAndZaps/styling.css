@@ -1,0 +1,19 @@
+#header {
+	-fx-font-size: 6em;
+	-fx-font-family: "Arial Black";
+
+}
+
+#buttons {
+
+}
+
+#gameLabels {
+	-fx-font-size: 1em;
+	-fx-font-family: "Arial Black";
+}
+
+#gameInfo {
+	-fx-font-size: 1em;
+	-fx-font-family: "Arial Black";
+}

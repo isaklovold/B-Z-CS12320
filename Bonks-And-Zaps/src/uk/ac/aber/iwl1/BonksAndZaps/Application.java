@@ -1,10 +1,26 @@
 package uk.ac.aber.iwl1.BonksAndZaps;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Scanner;
 
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.Border;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.BorderStroke;
+import javafx.scene.layout.BorderStrokeStyle;
+import javafx.scene.layout.BorderWidths;
+import javafx.scene.layout.CornerRadii;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import uk.ac.aber.iwl1.BonksAndZaps.mechanics.CannotActException;
@@ -26,6 +42,8 @@ public class Application extends javafx.application.Application {
 	private int cycles;
 	private Game game;
 	
+	private Label[] gameInfoLabels = new Label[4];
+	
 	/**
 	 * Constructor of the Application Class
 	 * Initialising all the instance variables
@@ -38,6 +56,145 @@ public class Application extends javafx.application.Application {
 		numZaps = 5;
 		cycles = 20;
 	}
+	
+	@Override
+	public void start(Stage stage) throws Exception {				
+		printMenu();
+		stage.setTitle("Bonks And Zaps");
+
+		Label header = new Label("Bonks And Zaps");
+		header.setFont(new Font(100));
+		header.setId("header");
+		header.setPadding(new Insets(0,0,0,200));
+		
+		BorderPane borderPane = new BorderPane();
+		
+		VBox buttons = new VBox();
+		Button settingsBtn = new Button("Settings");
+		settingsBtn.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent arg0) {
+				settings();
+				updateGUI();
+			}
+		});
+		settingsBtn.setPrefSize(120, 50);
+		
+		Button startBtn = new Button("Start");
+		startBtn.setPrefSize(120, 50);
+		startBtn.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent arg0) {
+				try {
+					runApp();
+					
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (CannotActException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		});
+		
+		Button pauseBtn = new Button("Pause");
+		pauseBtn.setPrefSize(120, 50);
+		
+		Button restartBtn = new Button("Restart");
+		restartBtn.setPrefSize(120, 50);
+		
+		Button stopBtn = new Button("Stop");
+		stopBtn.setPrefSize(120, 50);
+		
+		buttons.setId("buttons");
+		buttons.setSpacing(20);
+		buttons.setPadding(new Insets(100, 20, 20, 20)); 
+
+		
+		VBox gameLabels = new VBox();
+		Label grid = new Label("Grid size: ");
+		Label bonks = new Label("Number of bonks: ");
+		Label zaps = new Label("Number of zaps: ");
+		Label cycles = new Label("Cycles: ");
+		
+		gameLabels.setId("gameLabels");
+		gameLabels.setSpacing(50);
+		gameLabels.setPadding(new Insets(150, 20, 20, 20)); 
+		
+		
+		VBox gameInfo = new VBox();
+		Border gameInfo_border = new Border(new BorderStroke(Color.GRAY, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, new BorderWidths(2)));
+		
+		Label show_grid = new Label(String.valueOf(rows) + "x" + String.valueOf(rows));
+		show_grid.setBorder(gameInfo_border);
+		show_grid.setPrefSize(130, 50);
+		show_grid.setAlignment(Pos.CENTER);
+		gameInfoLabels[0] = show_grid;
+		
+		Label show_bonks = new Label(String.valueOf(numBonks));
+		show_bonks.setBorder(gameInfo_border);
+		show_bonks.setPrefSize(130, 50);
+		show_bonks.setAlignment(Pos.CENTER);
+		gameInfoLabels[1] = show_bonks;
+		
+		Label show_zaps = new Label(String.valueOf(numZaps));
+		show_zaps.setBorder(gameInfo_border);
+		show_zaps.setPrefSize(130, 50);
+		show_zaps.setAlignment(Pos.CENTER);
+		gameInfoLabels[2] = show_zaps;
+		
+		Label show_cycles = new Label(String.valueOf(this.cycles));
+		show_cycles.setBorder(gameInfo_border);
+		show_cycles.setPrefSize(130, 50);
+		show_cycles.setAlignment(Pos.CENTER);
+		gameInfoLabels[3] = show_cycles;
+		
+		
+		gameInfo.setId("gameInfo");
+		gameInfo.setSpacing(20);
+		gameInfo.setPadding(new Insets(135, 500, 0, 0));
+		
+		VBox results = new VBox();
+		
+		
+		
+		borderPane.setTop(header);
+		borderPane.setLeft(buttons);
+		borderPane.setCenter(gameLabels);
+		borderPane.setRight(gameInfo);
+		borderPane.setBottom(results);
+
+		buttons.getChildren().add(settingsBtn);
+		buttons.getChildren().add(startBtn);
+		buttons.getChildren().add(pauseBtn);
+		buttons.getChildren().add(restartBtn);
+		buttons.getChildren().add(stopBtn);
+		
+		gameLabels.getChildren().add(grid);
+		gameLabels.getChildren().add(bonks);
+		gameLabels.getChildren().add(zaps);
+		gameLabels.getChildren().add(cycles);
+		
+		gameInfo.getChildren().add(show_grid);
+		gameInfo.getChildren().add(show_bonks);
+		gameInfo.getChildren().add(show_zaps);
+		gameInfo.getChildren().add(show_cycles);
+		
+		
+		Scene scene = new Scene(borderPane, 1080, 900);
+		scene.getStylesheets().add(Application.class.getResource("styling.css").toExternalForm());
+		stage.setScene(scene);
+		stage.show();
+	}
+	
+	public void updateGUI(){
+		gameInfoLabels[0].setText(String.valueOf(rows));
+		gameInfoLabels[1].setText(String.valueOf(numBonks));
+		gameInfoLabels[2].setText(String.valueOf(numZaps));
+		gameInfoLabels[3].setText(String.valueOf(this.cycles));
+	}
+	
 	
 	/**
 	 * Method that runs the menu and allow user to interact with the game
@@ -114,23 +271,24 @@ public class Application extends javafx.application.Application {
 	 * @throws CannotActException call this class if being can't act
 	 */
 	public static void main(String[] args) throws IOException, CannotActException {
-		Application app = new Application();
-		app.runApp();
+//		for(String s: args){
+//			if(s.equals("-gui")){
+//				launch(args);
+//			} else {
+//				System.err.println("ERROR LOADING GUI!");
+//				System.exit(1);
+//			}
+//		}
+
+//		Application app = new Application();
+//		app.runApp();
+		
+		
 		launch(args);
+		
+		
 	}
 
-	@Override
-	public void start(Stage stage) throws Exception {
-		Label message = new Label("Heisann");
-		message.setFont(new Font(100));
-		stage.setTitle("Hola");
-		
-		StackPane root = new StackPane();
-		
-		root.getChildren().add(message);
-		
-		stage.setScene(new Scene(root, 700, 250));
-		stage.show();
-	}
+	
 
 }
