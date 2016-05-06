@@ -19,6 +19,7 @@ import javafx.scene.layout.BorderWidths;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.TilePane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -42,7 +43,9 @@ public class Application extends javafx.application.Application {
 	private int cycles;
 	private Game game;
 	
+	// JAVAFX
 	private Label[] gameInfoLabels = new Label[4];
+	private Label[] resultInfo = new Label[4];
 	
 	/**
 	 * Constructor of the Application Class
@@ -50,11 +53,13 @@ public class Application extends javafx.application.Application {
 	 */
 	public Application(){
 		in = new Scanner(System.in);
+		
 		rows = 20;
 		cols = 20;
 		numBonks = 20;
 		numZaps = 5;
 		cycles = 20;
+		
 	}
 	
 	@Override
@@ -86,11 +91,8 @@ public class Application extends javafx.application.Application {
 			@Override
 			public void handle(ActionEvent arg0) {
 				try {
-					runApp();
-					
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+					game = new Game(rows, cols, numBonks, numZaps, cycles);
+					updateResults();
 				} catch (CannotActException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -98,11 +100,30 @@ public class Application extends javafx.application.Application {
 			}
 		});
 		
-		Button pauseBtn = new Button("Pause");
+		final Button pauseBtn = new Button("Pause");
 		pauseBtn.setPrefSize(120, 50);
+		pauseBtn.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent arg0) {
+				if(pauseBtn.getText().equalsIgnoreCase("Pause")){
+					pauseBtn.setText("Play");
+				} else {
+					pauseBtn.setText("Pause");
+				}
+			}
+		});
 		
 		Button restartBtn = new Button("Restart");
 		restartBtn.setPrefSize(120, 50);
+		restartBtn.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent arg0) {
+				gameInfoLabels[0].setText(String.valueOf(20));
+				gameInfoLabels[1].setText(String.valueOf(20));
+				gameInfoLabels[2].setText(String.valueOf(5));
+				gameInfoLabels[3].setText(String.valueOf(20));
+			}
+		});
 		
 		Button stopBtn = new Button("Stop");
 		stopBtn.setPrefSize(120, 50);
@@ -111,6 +132,14 @@ public class Application extends javafx.application.Application {
 		buttons.setSpacing(20);
 		buttons.setPadding(new Insets(100, 20, 20, 20)); 
 
+		Button quitBtn = new Button("Quit");
+		quitBtn.setPrefSize(120, 50);
+		quitBtn.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent arg0) {
+				System.exit(1);
+			}
+		});
 		
 		VBox gameLabels = new VBox();
 		Label grid = new Label("Grid size: ");
@@ -156,8 +185,18 @@ public class Application extends javafx.application.Application {
 		gameInfo.setPadding(new Insets(135, 500, 0, 0));
 		
 		VBox results = new VBox();
+		results.setId("resultLabels");
+		Label result_label = new Label("Results: ");
+		resultInfo[0] = result_label;
+		result_label.setId("result");
+		Label result_bonks = new Label("Bonks alive: ");
+		resultInfo[1] = result_bonks;
+		Label result_babybonks = new Label("Baby Bonks alive: ");
+		resultInfo[2] = result_babybonks;
+		Label result_zapskilled = new Label("Zaps has killed: ");
+		resultInfo[3] = result_zapskilled;
 		
-		
+		results.setPadding(new Insets(0,0,50,450));
 		
 		borderPane.setTop(header);
 		borderPane.setLeft(buttons);
@@ -170,6 +209,7 @@ public class Application extends javafx.application.Application {
 		buttons.getChildren().add(pauseBtn);
 		buttons.getChildren().add(restartBtn);
 		buttons.getChildren().add(stopBtn);
+		buttons.getChildren().add(quitBtn);
 		
 		gameLabels.getChildren().add(grid);
 		gameLabels.getChildren().add(bonks);
@@ -180,6 +220,11 @@ public class Application extends javafx.application.Application {
 		gameInfo.getChildren().add(show_bonks);
 		gameInfo.getChildren().add(show_zaps);
 		gameInfo.getChildren().add(show_cycles);
+		
+		results.getChildren().add(result_label);
+		results.getChildren().add(result_bonks);
+		results.getChildren().add(result_babybonks);
+		results.getChildren().add(result_zapskilled);
 		
 		
 		Scene scene = new Scene(borderPane, 1080, 900);
@@ -193,6 +238,13 @@ public class Application extends javafx.application.Application {
 		gameInfoLabels[1].setText(String.valueOf(numBonks));
 		gameInfoLabels[2].setText(String.valueOf(numZaps));
 		gameInfoLabels[3].setText(String.valueOf(this.cycles));
+	}
+	
+	public void updateResults(){
+		resultInfo[1].setText(resultInfo[1].getText() + String.valueOf(game.bonksAlive) + "/" + String.valueOf(game.matureBonks));
+		resultInfo[2].setText(resultInfo[2].getText() + String.valueOf(game.babyBonksAlive) + "/" + String.valueOf(game.babyBonks));
+		resultInfo[3].setText(resultInfo[3].getText() + String.valueOf((game.matureBonks - game.bonksAlive) 
+				+ (game.babyBonks - game.babyBonksAlive)) + "/" + String.valueOf(game.matureBonks + game.babyBonks));
 	}
 	
 	
@@ -271,21 +323,17 @@ public class Application extends javafx.application.Application {
 	 * @throws CannotActException call this class if being can't act
 	 */
 	public static void main(String[] args) throws IOException, CannotActException {
-//		for(String s: args){
-//			if(s.equals("-gui")){
-//				launch(args);
-//			} else {
-//				System.err.println("ERROR LOADING GUI!");
-//				System.exit(1);
-//			}
-//		}
-
-//		Application app = new Application();
-//		app.runApp();
+		for(String s: args){
+			if(s.equals("-gui")){
+				launch(args);
+			} else {
+				System.err.println("ERROR LOADING GUI!");
+				System.exit(1);
+			}
+		}
 		
-		
-		launch(args);
-		
+		Application app = new Application();
+		app.runApp();
 		
 	}
 

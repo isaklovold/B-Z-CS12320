@@ -17,3 +17,13 @@
 	-fx-font-size: 1em;
 	-fx-font-family: "Arial Black";
 }
+
+#resultLabels {
+	-fx-font-size: 1em;
+	-fx-font-family: "Arial Black";
+}
+
+#result {
+	-fx-font-size: 2em;
+	-fx-font-family: "Arial Black";
+}

@@ -28,16 +28,15 @@ public class Game {
 	private ArrayList<Mortal> mortals;
 	private Utilities util;
 	
-	private int bonksAlive;
-	private int babyBonksAlive;
-	private int matureBonks;
-	private int babyBonks;
-	
+	public int bonksAlive;
+	public int babyBonksAlive;
+	public int matureBonks;
+	public int babyBonks;
 	
 	private int cycles;
 	private final int MAX_CYCLES;
 	private int numBeings;
-	
+		
 	private Random rand;
 	
 	/**
@@ -74,7 +73,7 @@ public class Game {
 		MAX_CYCLES = MAX_C - 1;	
 		
 		util = new Utilities();
-
+		
 		createBeings();
 		startGame();
 	}
@@ -101,7 +100,6 @@ public class Game {
 				e.printStackTrace();
 			}
 		} while(cycles <= MAX_CYCLES);
-		
 		for(int i = 0; i < bonks.size(); i++){
 			if(bonks.get(i).isAdult()){
 				matureBonks += 1;
@@ -122,7 +120,7 @@ public class Game {
 		System.out.println("Zaps have killed " + ((matureBonks - bonksAlive) + (babyBonks - babyBonksAlive)) 
 				+ "/" + (matureBonks + babyBonks) + " in total!");
 	}
-	
+
 	/**
 	 * Add bonks and to the mortals ArrayList
 	 * Can add more mortals if needed later on
